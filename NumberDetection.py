@@ -1,4 +1,5 @@
-import cv2 
+import cv2
+import Gui
 from cvzone.HandTrackingModule import HandDetector 
 
 detector = HandDetector(maxHands=2, detectionCon=0.8)
@@ -6,6 +7,14 @@ detector = HandDetector(maxHands=2, detectionCon=0.8)
 video = cv2.VideoCapture(0)
 cv2.namedWindow("Image", cv2.WINDOW_NORMAL)
 cv2.resizeWindow("Image", 800, 600)
+
+calculator = Gui.Calculator()
+
+def mouse_callback(event, x, y, flags, param):
+    if event == cv2.EVENT_LBUTTONDOWN:
+        calculator.handleClick(x, y)
+
+cv2.setMouseCallback('Image', mouse_callback)
 
 while True:
     success, img = video.read()
@@ -29,12 +38,13 @@ while True:
                 number = 4
             elif fingersup == [1, 1, 1, 1, 1]:
                 number = 5
-            
-            totalNumber += number
-            
-    # Showing the number to the user
-    cv2.putText(img, f"Number: {totalNumber}", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (36, 8, 8), 2)
 
+            totalNumber += number
+
+    # Showing the number to the user
+    cv2.putText(img, f"Number: {totalNumber}", (300, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (36, 8, 8), 2)
+
+    calculator.drawCalculator(img)
     cv2.imshow("Image", img)
 
     # Handling the exit
@@ -43,3 +53,4 @@ while True:
 
 video.release()
 cv2.destroyAllWindows()
+
