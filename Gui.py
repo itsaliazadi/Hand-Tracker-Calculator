@@ -39,7 +39,7 @@ class Calculator:
 
     def handleClick(self, x, y):
         for button in self.buttons:
-            if button['x'] < x < button['x'] + 60 and button['y'] < y < button['y'] + 50:
+            if button['x'] <= x < button['x'] + 60 and button['y'] <= y < button['y'] + 50:
                 if button['text'] == '=':
                     try:
                         self.displayValue = str(eval(self.displayValue))
