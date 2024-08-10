@@ -1,4 +1,5 @@
 import cv2
+import time
 import numpy as np
 
 class Calculator:
@@ -44,12 +45,19 @@ class Calculator:
                     try:
                         self.displayValue = str(eval(self.displayValue))
                     except Exception as e:
-                        self.displayValue = "Error"
+                        self.displayValue = ""
                 else:
                     if self.displayValue == "0" and button['text'] != '.':
                         self.displayValue = button['text']
                     else:
                         self.displayValue += button['text']
+
+    def handleHandInput(self, number):
+        if self.displayValue == "0":
+            self.displayValue = ""
+        for button in self.buttons:
+            if button['text'] == str(number):
+                self.displayValue += str(number)
     
 
 
