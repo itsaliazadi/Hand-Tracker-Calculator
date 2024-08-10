@@ -23,6 +23,8 @@ def mouse_callback(event, x, y, flags, param):
 
 cv2.setMouseCallback('Image', mouse_callback)
 
+preNumber = 0
+
 while True:
     success, img = video.read()
     img = cv2.flip(img, 1)
@@ -60,9 +62,14 @@ while True:
                 number = 5
 
             totalNumber += number
+    
+    if totalNumber != 0 and totalNumber != preNumber:  
+        calculator.handleHandInput(totalNumber)
+        preNumber = totalNumber
+        totalNumber = 0
 
     # Showing the number to the user
-    cv2.putText(img, f"Number: {totalNumber}", (300, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (36, 8, 8), 2)
+    cv2.putText(img, f"Number: {totalNumber}", (450, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (36, 8, 8), 2)
     cv2.imshow("Image", img)
 
     # Handling the exit
