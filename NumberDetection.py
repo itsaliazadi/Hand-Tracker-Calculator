@@ -16,14 +16,16 @@ def isClicking(indexTip, thumbTip, button, preIndexTip, lastClickTime):
     xi, yi, _ = [int(i) for i in indexTip]
     xt, yt, _ = [int(j) for j in thumbTip]
 
-    avg_x = int((xi + preIndexTip[0]) / 2)
-    avg_y = int((yi + preIndexTip[1]) / 2)
+    avgX = int((xi + preIndexTip[0]) / 2)
+    avgY = int((yi + preIndexTip[1]) / 2)
 
-    preIndexTip = (avg_x, avg_y)
+    preIndexTip = (avgX, avgY)
 
     distance = ((xi-xt)**2 + (yi-yt)**2) ** 0.5
     velocity = distance / (time.time() - lastClickTime)
-    if distance < 20 and button['x'] <= xi <= button['x'] + 70 and button['y'] <= yi <= button['y'] + 60 and velocity < 200:
+    buttonWidth = 70
+    buttonHeight = 60
+    if distance < 20 and (button['x'] <= xi <= button['x'] + buttonWidth) and (button['y'] <= yi <= button['y'] + buttonHeight) and velocity < 200:
         lastClickTime = time.time()
         return True
     return False
