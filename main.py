@@ -20,7 +20,7 @@ preIndexTip = (0, 0)
 clickDelay = 0.5
 lastClickTime = 0
 
-def mouse_callback(event, x, y, flags, param):
+def mouse_callback(event, x, y, flags, param) -> None:
     if event == cv2.EVENT_LBUTTONDOWN:
         calculator.handleClick(x, y)
 

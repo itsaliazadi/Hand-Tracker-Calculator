@@ -4,15 +4,15 @@ import time
 from cvzone.HandTrackingModule import HandDetector 
 
 
-def getIndexTip(hand):
+def getIndexTip(hand) -> list:
     indexTip = hand['lmList'][8]
     return indexTip
 
-def getThumbTip(hand):
+def getThumbTip(hand) -> list:
     thumbTip = hand['lmList'][4]
     return thumbTip
 
-def isClicking(indexTip, thumbTip, button, preIndexTip, lastClickTime):
+def isClicking(indexTip, thumbTip, button, preIndexTip, lastClickTime) -> bool:
     xi, yi, _ = [int(i) for i in indexTip]
     xt, yt, _ = [int(j) for j in thumbTip]
 

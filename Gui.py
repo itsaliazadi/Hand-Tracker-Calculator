@@ -26,7 +26,7 @@ class Calculator:
             {'text': 'delete', 'x': 30, 'y': 330, 'width': 100, 'height': 30}
         ]
     
-    def drawCalculator(self, frame):
+    def drawCalculator(self, frame) -> None:
         # Drawing the background
         calculatorWidth = 400
         calculatorHeight = 370
@@ -52,7 +52,7 @@ class Calculator:
                 cv2.rectangle(frame, (button['x'], button['y']), (button['x'] + button['width'], button['y'] + button['height']), (31, 24, 128), -1)
                 cv2.putText(frame, button['text'], (button['x'] + 8, button['y'] + 25), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 0), 1)
 
-    def handleClick(self, x, y):
+    def handleClick(self, x, y) -> None:
         for button in self.buttons:
             if button['x'] <= x < button['x'] + 70 and button['y'] <= y < button['y'] + 50:
                 if button['text'] == '=':
@@ -71,7 +71,7 @@ class Calculator:
                     else:
                         self.displayValue += button['text']
 
-    def handleHandInput(self, number):
+    def handleHandInput(self, number) -> None:
         if self.displayValue == "0":
             self.displayValue = ""
         for button in self.buttons:
