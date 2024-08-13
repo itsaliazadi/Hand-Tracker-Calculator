@@ -7,9 +7,12 @@ from cvzone.HandTrackingModule import HandDetector
 
 detector = HandDetector(maxHands=2, detectionCon=0.8)
 
+screenWidth = 800
+screenHeight = 600
+
 video = cv2.VideoCapture(0)
 cv2.namedWindow("Image", cv2.WINDOW_NORMAL)
-cv2.resizeWindow("Image", 800, 600)
+cv2.resizeWindow("Image", screenWidth, screenHeight)
 
 calculator = Gui.Calculator()
 
@@ -39,7 +42,8 @@ while True:
 
             indexTip = getIndexTip(hand)
             thumbTip = getThumbTip(hand)
-            cv2.circle(img, (indexTip[0], indexTip[1]), 10, (0, 255, 0), -1)
+            greenColor = (0, 255, 0)
+            cv2.circle(img, (indexTip[0], indexTip[1]), 10, greenColor, -1)
 
             for button in calculator.buttons:
                 if isClicking(indexTip, thumbTip, button, preIndexTip, lastClickTime):
