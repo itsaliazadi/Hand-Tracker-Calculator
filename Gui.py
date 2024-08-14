@@ -37,9 +37,11 @@ class Calculator:
         cv2.rectangle(frame, (20, 20), (360, 40), (255, 255, 255), -1)
         cv2.putText(frame, self.displayValue, (30, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 1)
 
+        # White buttons for the numbers and red buttons for the operators
         whiteButton = (200, 200, 200)
         redButton = (31, 24, 128)
 
+        # Drawing the buttons
         for button in self.buttons:
             if button['text'] != "delete":
                 if button['text'] in ('=', '+', '-', '/', '*'):
@@ -55,20 +57,26 @@ class Calculator:
     def handleClick(self, x, y) -> None:
         for button in self.buttons:
             if button['x'] <= x < button['x'] + 70 and button['y'] <= y < button['y'] + 50:
+
                 if button['text'] == '=':
                     try:
+                        # Showing the result
                         self.displayValue = str(eval(self.displayValue))
                     except Exception as e:
                         self.displayValue = ""
+
                 elif button['text'] == "delete":
                     try:
+                        # Deleting the last number or operator
                         self.displayValue = self.displayValue[:-1]
                     except Exception as e:
                         pass
+
                 else:
                     if self.displayValue == "0" and button['text'] != '.':
                         self.displayValue = button['text']
                     else:
+                        # Because 0 behind another integer is not valid in math
                         self.displayValue += button['text']
 
     def handleHandInput(self, number) -> None:
@@ -77,6 +85,3 @@ class Calculator:
         for button in self.buttons:
             if button['text'] == str(number):
                 self.displayValue += str(number)
-    
-
-
