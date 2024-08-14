@@ -5,7 +5,7 @@ from NumberDetection import *
 from cvzone.HandTrackingModule import HandDetector
 
 
-detector = HandDetector(maxHands=2, detectionCon=0.8)
+detector = HandDetector(maxHands=2, detectionCon=0.9)
 
 screenWidth = 800
 screenHeight = 600
@@ -16,41 +16,43 @@ cv2.resizeWindow("Image", screenWidth, screenHeight)
 
 calculator = Gui.Calculator()
 
+# These variables are used to calculate the finger movement velocity
 preIndexTip = (0, 0)
-clickDelay = 0.5
 lastClickTime = 0
 
-def mouse_callback(event, x, y, flags, param) -> None:
-    if event == cv2.EVENT_LBUTTONDOWN:
-        calculator.handleClick(x, y)
-
-cv2.setMouseCallback('Image', mouse_callback)
-
+# Previous number the user showed with their fingers
 preNumber = 0
 
 while True:
     success, img = video.read()
     img = cv2.flip(img, 1)
+
+    # Detecting hands in the image
     hands, img = detector.findHands(img)
 
+    # Deawing the calculator
     calculator.drawCalculator(img)
+
     totalNumber = 0
     if hands:
         # Getting the number from each hand
         for hand in hands:
-            fingersup = detector.fingersUp(hand)
-
             indexTip = getIndexTip(hand)
             thumbTip = getThumbTip(hand)
+            
+            # Moving a green circle as the user's index finger moves as a marker
             greenColor = (0, 255, 0)
             cv2.circle(img, (indexTip[0], indexTip[1]), 10, greenColor, -1)
 
+            # Looking for the button that's been clicked and then handle the click
             for button in calculator.buttons:
                 if isClicking(indexTip, thumbTip, button, preIndexTip, lastClickTime):
-                    print(button['text'])
                     calculator.handleClick(button['x'], button['y'])
                     time.sleep(0.1)
                     break
+            
+            # Detecting the number user shows with their fingers
+            fingersup = detector.fingersUp(hand)
 
             number = 0
             # Recognizing the number
@@ -65,8 +67,10 @@ while True:
             elif fingersup == [1, 1, 1, 1, 1]:
                 number = 5
 
+            # The reason for totalNumber is that we want to capture the number shown with both hands
             totalNumber += number
-    
+
+    # To prevent the totalNumber from being typed in the number bar repeatedly
     if totalNumber != 0 and totalNumber != preNumber:  
         calculator.handleHandInput(totalNumber)
         preNumber = totalNumber
