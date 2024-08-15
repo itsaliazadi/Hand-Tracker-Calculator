@@ -47,7 +47,7 @@ while True:
             # Looking for the button that's been clicked and then handle the click
             for button in calculator.buttons:
                 if isClicking(indexTip, thumbTip, button, preIndexTip, lastClickTime):
-                    calculator.handleClick(button['x'], button['y'])
+                    calculator.handleClick(button['x'], button['y'], img)
                     time.sleep(0.1)
                     break
             
