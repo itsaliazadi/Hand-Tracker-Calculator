@@ -32,7 +32,7 @@ class Calculator:
         # Drawing the background
         calculatorWidth = 400
         calculatorHeight = 370
-        calculatorColor = (112, 19, 19)
+        calculatorColor = (73, 5, 5)
         cv2.rectangle(frame, (0, 0), (calculatorWidth, calculatorHeight), calculatorColor, -1)
 
         # Displaying the number
