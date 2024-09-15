@@ -17,5 +17,4 @@ This project uses computer vision and machine learning to detect hand gestures a
 * The application uses a simple machine learning model to recognize numbers shown by the user's fingers.
 # Getting Started
 * 1-Clone the repository: git clone https://github.com/itsaliazadi/Hand-Tracker-Calculator
-* 2-Install the required dependencies: pip install -r requirements.txt
-* 3-Run the application: python main.py
+* 2-Run the application: python main.py
